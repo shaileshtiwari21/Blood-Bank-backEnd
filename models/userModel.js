@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const validator = require("validator");
 const usersSchema = new mongoose.Schema(
   {
     role: {
@@ -16,10 +15,10 @@ const usersSchema = new mongoose.Schema(
         return false;
       },
     },
-    organisation: {
+    organisationName: {
       type: String,
       required: function () {
-        if (this.role === organisation) {
+        if (this.role === "organisation") {
           return true;
         }
         return false;
@@ -38,11 +37,6 @@ const usersSchema = new mongoose.Schema(
       type: String,
       required: [true, "email is required"],
       unique: true,
-      validate(value) {
-        if (!validator.isEmail(value)) {
-          throw Error("not valid email");
-        }
-      },
     },
     password: {
       type: String,
