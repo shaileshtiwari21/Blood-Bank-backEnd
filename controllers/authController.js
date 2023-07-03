@@ -23,7 +23,7 @@ const registerController = async (req, res) => {
     const storeData = await user.save();
     return res.status(201).json({
       success: true,
-      message: "user registered successfully",
+      message: "User registered successfully",
       storeData,
     });
   } catch (err) {
