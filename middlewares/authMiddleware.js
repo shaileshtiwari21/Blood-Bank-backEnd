@@ -7,6 +7,7 @@ module.exports = async (req, res, next) => {
         return res.status(401).json({
           success: false,
           message: "Authentication failed",
+          err,
         });
       } else {
         req.body.userId = decode.userId;
@@ -15,7 +16,7 @@ module.exports = async (req, res, next) => {
     });
   } catch (err) {
     console.log(err);
-    return res.status(500).json({
+    return res.status(401).json({
       success: false,
       err,
       message: "Authentication failed",

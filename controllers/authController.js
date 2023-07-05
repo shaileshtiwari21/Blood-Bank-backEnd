@@ -46,6 +46,13 @@ const loginController = async (req, res) => {
         message: "Invalid credentials",
       });
     }
+    // check role
+    if (user.role !== req.body.role) {
+      return res.status(500).json({
+        success: false,
+        message: "role does not exist",
+      });
+    }
     // compare password
     const comparePassword = await bcrypt.compare(
       req.body.password,
@@ -79,7 +86,7 @@ const loginController = async (req, res) => {
 // get current user
 const currentUserController = async (req, res) => {
   try {
-    const user = userModel.findOne({ _id: req.body.userId });
+    const user = await userModel.findOne({ _id: req.body.userId });
     return res.status(200).json({
       success: true,
       message: "user fetched successfully",
