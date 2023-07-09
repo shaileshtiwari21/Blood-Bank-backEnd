@@ -12,12 +12,13 @@ const investorySchema = new mongoose.Schema(
       enum: ["O-", "O+", "AB+", "AB-", "A+", "A-", "B+", "B-"],
     },
     quentity: {
-      type: String,
+      type: Number,
       required: [true, "quentity is required"],
     },
     organisation: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "organisation",
+      ref: "users",
+
       required: [true, "organisation is required"],
     },
     hospital: {

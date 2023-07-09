@@ -10,7 +10,7 @@ const createInventoryController = async (req, res) => {
     if (!user) {
       throw new Error("User not found");
     }
-    
+
     if (inventoryType === "in" && user.role !== "donar") {
       throw new Error("Not a donnar account");
     }
@@ -34,4 +34,24 @@ const createInventoryController = async (req, res) => {
     });
   }
 };
-module.exports = createInventoryController;
+// get inventory
+const getInventoryController = async (req, res) => {
+  try {
+    const inventory = await inventoryModel.find({
+      organisation: req.body.userId,
+    });
+    return res.status(200).json({
+      success: true,
+      message: "get all records successfully",
+      inventory,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      success: false,
+      message: "Error in get inventory",
+      err,
+    });
+  }
+};
+module.exports = { createInventoryController, getInventoryController };
